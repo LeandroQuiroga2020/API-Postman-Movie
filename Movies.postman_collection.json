@@ -1,0 +1,356 @@
+{
+	"info": {
+		"_postman_id": "679be438-2cd8-48ab-8d4e-dc069a6e46b6",
+		"name": "Movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9349742",
+		"_collection_link": "https://grey-trinity-9495.postman.co/workspace/Test01~5b190109-8e7b-4b69-aad7-df687547ad79/collection/9349742-679be438-2cd8-48ab-8d4e-dc069a6e46b6?action=share&source=collection_link&creator=9349742"
+	},
+	"item": [
+		{
+			"name": "Segundo Test",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"\r",
+							"\r",
+							"var jsondata = JSON.parse(responseBody);\r",
+							"var primerpelicula= jsondata.results[0].title;\r",
+							"tests[\"la primer pelicula es Godzilla x Kong: The New Empire\"] = primerpelicula === \"Godzilla Minus One\";\r",
+							"\r",
+							"var popularidad0 = jsondata.results[0].popularity\r",
+							"var popularidad1 = jsondata.results[1].popularity\r",
+							"tests[\"la pelicula numero 1: \" + popularidad0 +  \" es mayor que la numero 2: \" + popularidad1] = popularidad0 >= popularidad1;\r",
+							"\r",
+							"var cantidadpeliculas = jsondata.results.length;\r",
+							"popularidadultima = jsondata.results[cantidadpeliculas - 1].popularity;\r",
+							"tests[\"la pelicula numero 1: \" + popularidad0 +  \" es mayor que la ultima: \" + popularidadultima] = popularidad0 >= popularidadultima;\r",
+							"\r",
+							"pm.test(\"Page is true\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.page).to.eql(1);\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Buscar ID o nombre\", function(){   // este test no hace nada , pero tampoco falla, revisar, busca el el title en el array y compara\r",
+							"    var jsonData = pm.response.json();\r",
+							"    var user = jsonData.results.find(x => x.title ==  \"Ape vs. Mdecha Ape\");\r",
+							"    console.log(user); \r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Que no haya valores nulos\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.results[0].original_language).to.not.include(\"null\");\r",
+							"    \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valida que el campo traiga numeros y letras\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.results[0].owerview).to.match(/^[a-zA-Z0-9\\-]+$/);  \r",
+							"    \r",
+							"});\r",
+							"\r",
+							"tests[\"el tiempo de respuesta esta dentro del intervalo(hasta 3 segundos)\"] = _.inRange(responseTime,10,3000);\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTBmZjVlNGE5NTg5NzY4MGI2MDdhMmQ5ZjBjNWQwZSIsInN1YiI6IjY2MmFhYzM0ZTI5NWI0MDExZjEzOTYwNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YuRMPfGkqyNFEW_dF_t5M2zMe6aKvnokX80DGKeboEU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/3/movie/popular",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"3",
+						"movie",
+						"popular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Tercer Test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTBmZjVlNGE5NTg5NzY4MGI2MDdhMmQ5ZjBjNWQwZSIsInN1YiI6IjY2MmFhYzM0ZTI5NWI0MDExZjEzOTYwNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YuRMPfGkqyNFEW_dF_t5M2zMe6aKvnokX80DGKeboEU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/3/movie/popular",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"3",
+						"movie",
+						"popular"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Envio",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYTBmZjVlNGE5NTg5NzY4MGI2MDdhMmQ5ZjBjNWQwZSIsInN1YiI6IjY2MmFhYzM0ZTI5NWI0MDExZjEzOTYwNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.YuRMPfGkqyNFEW_dF_t5M2zMe6aKvnokX80DGKeboEU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{nombre}}\",\r\n    \"trabajo\": \"{{trabajo}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar tipo de valores de Body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var schema = pm.variables.get(\"schema\")  //recibimos el array del Pre-request\r",
+							"\r",
+							"pm.test(\"La estructura de los datos del json son validos\", function () {\r",
+							"  pm.expect(pm.response.json()).to.have.jsonSchema(schema);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var schema = {   //valida los tipos de datos de todo el json\r",
+							"  \"type\": \"object\",\r",
+							"  \"properties\": {\r",
+							"    \"page\": {\r",
+							"      \"type\": \"integer\"\r",
+							"    },\r",
+							"    \"results\": {\r",
+							"      \"type\": \"array\",\r",
+							"      \"items\": {\r",
+							"        \"type\": \"object\",\r",
+							"        \"properties\": {\r",
+							"          \"adult\": {\r",
+							"            \"type\": \"boolean\"\r",
+							"          },\r",
+							"          \"genre_ids\": {\r",
+							"            \"type\": \"array\",\r",
+							"            \"items\": {\r",
+							"              \"type\": \"integer\"\r",
+							"            }\r",
+							"          },\r",
+							"          \"id\": {\r",
+							"            \"type\": \"number\"\r",
+							"          },\r",
+							"          \"original_language\": {\r",
+							"            \"type\": \"string\"\r",
+							"          },\r",
+							"          \"original_title\": {\r",
+							"            \"type\": \"string\"\r",
+							"          },\r",
+							"          \"overview\": {\r",
+							"            \"type\": \"string\"\r",
+							"          },\r",
+							"          \"popularity\": {\r",
+							"            \"type\": \"number\"\r",
+							"          },\r",
+							"          \"poster_path\": {\r",
+							"            \"type\": \"string\"\r",
+							"          },\r",
+							"          \"release_date\": {\r",
+							"            \"type\": \"string\"\r",
+							"          },\r",
+							"          \"title\": {\r",
+							"            \"type\": \"string\"\r",
+							"          },\r",
+							"          \"video\": {\r",
+							"            \"type\": \"boolean\"\r",
+							"          },\r",
+							"          \"vote_average\": {\r",
+							"            \"type\": \"number\"\r",
+							"          },\r",
+							"          \"vote_count\": {\r",
+							"            \"type\": \"integer\"\r",
+							"          }\r",
+							"        },\r",
+							"        \"required\": [\r",
+							"          \"adult\",\r",
+							"          \"backdrop_path\",\r",
+							"          \"genre_ids\",\r",
+							"          \"id\",\r",
+							"          \"original_language\",\r",
+							"          \"original_title\",\r",
+							"          \"overview\",\r",
+							"          \"popularity\",\r",
+							"          \"poster_path\",\r",
+							"          \"release_date\",\r",
+							"          \"title\",\r",
+							"          \"video\",\r",
+							"          \"vote_average\",\r",
+							"          \"vote_count\"\r",
+							"        ]\r",
+							"      }\r",
+							"    }\r",
+							"  },\r",
+							"  \"required\": [\"page\", \"results\"]\r",
+							"};\r",
+							"\r",
+							"pm.variables.set(\"schema\",schema)  //mandamos toda la variable que contiene todo el array al Post-responce, para separar"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/3/movie/popular",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"3",
+						"movie",
+						"popular"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{value}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "{{key}}",
+				"type": "string"
+			},
+			{
+				"key": "in",
+				"value": "query",
+				"type": "string"
+			}
+		]
+	},
+	"variable": [
+		{
+			"key": "value",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "key",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "in",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
